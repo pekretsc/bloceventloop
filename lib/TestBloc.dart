@@ -8,24 +8,24 @@ class Bloc {
 
   final _StateController = BehaviorSubject<BlocState>();
 
-  StreamSink<BlocState> get _inBlockResource => _StateController.sink;
-  Stream<BlocState> get BlocResource => _StateController.stream;
+  StreamSink<BlocState> get _stateSink => _StateController.sink;
+  Stream<BlocState> get StateStream => _StateController.stream;
 
   final _EventController = StreamController<BlocEvent>();
-  Sink<BlocEvent> get BlocEventSinc => _EventController.sink;
+  Sink<BlocEvent> get EventSink => _EventController.sink;
 
   Bloc() {
     _StateController.listen(_stateUpdateted);
-    _inBlockResource.add(blocState);
+    _stateSink.add(blocState);
     _EventController.stream.listen(_mapEventToState);
   }
 
   void _stateUpdateted(BlocState state){
-    print('BlocState update: ${blocState.state}');
+   // print('BlocState update: ${blocState.state}');
   }
   void refresh(BlocUIState state) async {
     blocState.state = state;
-    _inBlockResource.add(blocState);
+    _stateSink.add(blocState);
   }
 
   void _mapEventToState(BlocEvent event) async {

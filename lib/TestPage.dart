@@ -11,9 +11,10 @@ class TestPage extends StatelessWidget {
           width: double.infinity,
           color: Colors.amber,
           child: StreamBuilder(
-            stream: testBloc.BlocResource,
+            stream: testBloc.StateStream,
             initialData: testBloc.blocState,
             builder: (context,AsyncSnapshot<BlocState> snap){
+              print(snap.data.state);
               return
                 Center(
                   child: Column(
@@ -22,25 +23,25 @@ class TestPage extends StatelessWidget {
                       RaisedButton(
                         child: Text('Init Event in State'),
                         onPressed: (){
-                          testBloc.BlocEventSinc.add(ExpensiveEventInState());
+                          testBloc.EventSink.add(ExpensiveEventInState());
                         },
                       ),
                       RaisedButton(
                         child: Text('Init Event in Bloc'),
                         onPressed: (){
-                          testBloc.BlocEventSinc.add(ExpensiveEventInBloc());
+                          testBloc.EventSink.add(ExpensiveEventInBloc());
                         },
                       ),
                       RaisedButton(
                         child: Text('Init Event in Bloc Funk'),
                         onPressed: (){
-                          testBloc.BlocEventSinc.add(ExpensiveEventInBlocFunk());
+                          testBloc.EventSink.add(ExpensiveEventInBlocFunk());
                         },
                       ),
                       RaisedButton(
                         child: Text('Init Event in Bloc Why does This Work????'),
                         onPressed: (){
-                          testBloc.BlocEventSinc.add(ExpensiveEventWhyDoesThisWork());
+                          testBloc.EventSink.add(ExpensiveEventWhyDoesThisWork());
                         },
                       )
                     ],
