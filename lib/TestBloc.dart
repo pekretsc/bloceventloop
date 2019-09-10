@@ -68,14 +68,14 @@ class Bloc {
     }
     if (event is ExpensiveEventWhyDoesThisWork) {
       refresh(BlocUIState.Waiting);
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 3));
       refresh(BlocUIState.Fin);
     }
   }
   Future<String> doSomeThing() async {
     String returnValue = '';
     try {
-      sleep(Duration(seconds: 5));
+      sleep(Duration(seconds: 3));
     } catch (e) {
       returnValue = e.toString();
     }
@@ -85,7 +85,7 @@ class Bloc {
   String doSomeThingFunk()  {
     String returnValue = '';
     try {
-      sleep(Duration(seconds: 5));
+      sleep(Duration(seconds: 3));
     } catch (e) {
       returnValue = e.toString();
     }
@@ -106,7 +106,7 @@ class BlocState {
     String returnValue = '';
     try {
       stateData ++;
-      sleep(Duration(seconds: 5));
+      sleep(Duration(seconds: 3));
     } catch (e) {
       returnValue = e.toString();
     }
