@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:bloceventloop/Counter.dart';
 import 'TestPage.dart';
 
 
@@ -17,6 +17,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(home: TestPage());
+    return MaterialApp(home: Counter());
   }
 }
