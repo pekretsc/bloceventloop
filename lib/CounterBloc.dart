@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CounterBloc {
@@ -26,7 +28,21 @@ class CounterBloc {
   void _mapEventToState(CounterBlocEvent event) async {
     if (event is AddEvent) {
       refresh(CounterBlocUIState.Waiting);
-      String result = await blocState.Add();
+      String result;
+      try{
+        result =
+        await blocState.add().then((value){
+          if(value !=null){
+            return '';
+          }else{
+            return 'fail';
+          }
+        });
+      }catch(e){
+
+      }
+
+
       if (result == '') {
         refresh(CounterBlocUIState.Fin);
       } else {
@@ -46,15 +62,20 @@ class CounterBlocState {
 
   int stateData = 0;
 
-  Future<String> Add() async {
-    String returnValue = '';
-    try {
-      stateData ++;
-      await Future.delayed(Duration(seconds: 3));
-    } catch (e) {
-      returnValue = e.toString();
-    }
-    return returnValue;
+
+  Future<String> add() async {
+    // Use the compute function to run parsePhotos in a separate isolate.
+    final int res = stateData + int.parse(await compute(sleeping, '1'));
+    // The result variable MUST be final, otherwise the app crashes
+    stateData = res;
+    return '';
+  }
+
+// The computed Function must be 'static' or there will be an exception
+  //Also if using 'compute() the Function must look like static String functionName(String argument)(){} '
+ static String sleeping(String addNumber) {
+    sleep(Duration(seconds: 3));
+    return addNumber;
   }
 }
 
@@ -62,3 +83,4 @@ enum CounterBlocUIState {  NotDet,Waiting,Fail,Fin, }
 
 abstract class CounterBlocEvent{}
 class AddEvent extends CounterBlocEvent{}
+

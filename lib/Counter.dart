@@ -27,7 +27,7 @@ class Counter  extends StatelessWidget {
             initialData: counterBloc.blocState,
             // ignore: missing_return
             builder: (context, AsyncSnapshot<CounterBlocState> snap){
-              print(counterBloc.EventSink.toString());
+              print(snap.data.state);
                switch(snap.data.state) {
                          case CounterBlocUIState.NotDet: {
                            return Center(
@@ -45,6 +45,11 @@ class Counter  extends StatelessWidget {
                          }
                          break;
                          case CounterBlocUIState.Fail: {
+                           return Center(
+                             child: Text(
+                                 'Fail'
+                             ),
+                           );
                            //statements;
                          }
                          break;
